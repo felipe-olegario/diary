@@ -106,8 +106,39 @@ const ComponentName: React.FC<ComponentNameProps> = ({ exampleProp }) => {
             {index === 3 && (
               <div className="flex flex-col justify-between items-center px-10 h-[600px]">
                 <Image
-                  src="/logo.svg"
+                  src="/search-image.svg"
                   alt="Vercel Logo"   
+                  width={150}
+                  height={50}
+                  priority
+                />
+                <Image
+                  src="/graphic.svg"
+                  alt="Vercel Logo"
+                  width={250}
+                  height={200}
+                  priority
+                />
+                <h1 className="text-4xl font-bold mb-4">
+                  Diário de pesquisa
+                </h1>
+                <p className="text-lg font-medium">
+                  Pesquise facilmente em seu diário para reviver uma memória específica!
+                </p>
+                <div className="flex justify-between items-center w-full">
+                  <Progress indexSelected={index} />
+                  <Button
+                    text="Próximo"
+                    onClick={() => setIndex((prevIndex) => prevIndex + 1)}
+                  />
+                </div>
+              </div>
+            )}
+            {index === 4 && (
+              <div className="flex flex-col justify-between items-center px-10 h-[600px]">
+                <Image
+                  src="/security-image.svg"
+                  alt="Vercel Logo"
                   width={150}
                   height={50}
                   priority
