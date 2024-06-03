@@ -32,3 +32,8 @@ body {
   align-items: center;
   justify-content: center;
 }
+
+.input-placeholder::placeholder {
+  font-size: 0.875rem; /* Ajusta o tamanho da fonte */
+  color: rgba(156, 163, 175, 0.5); /* Tornar o placeholder mais claro (text-gray-400 com opacidade 50%) */
+}
