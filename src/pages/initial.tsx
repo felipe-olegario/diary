@@ -8,33 +8,26 @@ interface ComponentNameProps {
 
 const ComponentName: React.FC<ComponentNameProps> = ({ exampleProp }) => {
   const [index, setIndex] = useState<number>(0);
-  const [inProp, setInProp] = useState<boolean>(true);
 
   useEffect(() => {
-    if (inProp) {
+    if (index < 1) {
       const timeout = setTimeout(() => {
-        setInProp(false);
+        setIndex((prevIndex) => prevIndex + 1);
       }, 1000);
       return () => clearTimeout(timeout);
     }
-  }, [inProp]);
-
-  const handleEntered = () => {
-    setIndex((prevIndex) => (prevIndex + 1) % 3);
-    setInProp(true);
-  };
+  }, [index]);
 
   return (
-    <div className='flex items-center justify-center max-w-[1050px] mx-auto w-full h-[100dvh]'>
+    <div className='flex items-center justify-center max-w-[1050px] mx-auto w-full h-[100dvh] relative'>
       <TransitionGroup>
         <CSSTransition
           key={index}
-          in={inProp}
-          timeout={500}
+          timeout={{ enter: 600, exit: 500 }}
           classNames="fade"
-          onEntered={handleEntered}
+          unmountOnExit
         >
-          <div>
+          <div className="absolute inset-0 flex items-center justify-center">
             {index === 0 && (
               <div>
                 <Image
@@ -58,7 +51,7 @@ const ComponentName: React.FC<ComponentNameProps> = ({ exampleProp }) => {
                 />
                 <Image
                   src="/girl-studying.svg"
-                  alt="Girl Studying"
+                  alt="Vercel Logo"
                   width={200}
                   height={100}
                   priority

@@ -2,12 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
-html, body {
-  background-color: '#E5E5E5';
-  font-family: 'Manrope';
-}
-
 .fade-enter {
   opacity: 0;
 }
@@ -21,4 +15,16 @@ html, body {
 .fade-exit-active {
   opacity: 0;
   transition: opacity 500ms ease-in-out;
+}
+
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
