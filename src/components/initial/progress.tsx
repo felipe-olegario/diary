@@ -12,7 +12,7 @@ const Progress: React.FC<ProgressProps> = ({ indexSelected = 0 }) => {
       {[...Array(totalSteps)].map((_, index) => (
         <div
           key={index}
-          className={`h-2 w-2 rounded-full ${index <= indexSelected ? 'bg-black' : 'bg-gray-200'}`}
+          className={`h-2 w-2 rounded-full ${index < indexSelected ? 'bg-black' : 'bg-gray-200'}`}
         ></div>
       ))}
     </div>
