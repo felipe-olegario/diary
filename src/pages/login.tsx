@@ -3,20 +3,54 @@ import Link from "next/link"; // Importando o componente Link do Next.js
 import Input from "../components/input";
 import Button from "../components/button";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 interface ComponentNameProps {
     exampleProp?: string;
 }
 
 const ComponentName: React.FC<ComponentNameProps> = ({ exampleProp }) => {
+    const router = useRouter();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // Adicione a lógica de submissão do formulário aqui
-        console.log("Form submitted", { name, email, password });
+
+        try {
+            const response = await fetch('/api/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email,
+                    password,
+                }),
+            });
+
+            if (!response.ok) {
+                const data = await response.json();
+                throw new Error(data.error || 'Erro ao fazer login');
+            }
+
+            const { token } = await response.json();
+            // Store the token in local storage or session storage
+            localStorage.setItem('token', token);
+
+            // Redirect the user to the dashboard or another page
+            console.log("User logged in successfully");
+            router.push("/home"); // Redireciona para a próxima página
+        } catch (error) {
+            if (error instanceof Error) {
+                setError(error.message);
+            } else {
+                setError("An unexpected error occurred");
+            }
+        }
     };
+
 
     return (
         <div className="max-w-[1050px] mx-auto w-full h-[100vh] relative">

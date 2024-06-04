@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Link from "next/link"; // Importando o componente Link do Next.js
 import Input from "../components/input";
+import { useRouter } from "next/router";
 import Button from "../components/button";
 
 interface ComponentNameProps {
@@ -8,6 +9,7 @@ interface ComponentNameProps {
 }
 
 const ComponentName: React.FC<ComponentNameProps> = ({ exampleProp }) => {
+      const router = useRouter();
     const [index, setIndex] = useState<number>(0);
 
     const [name, setName] = useState("");
@@ -15,11 +17,41 @@ const ComponentName: React.FC<ComponentNameProps> = ({ exampleProp }) => {
     const [document, setDocument] = useState("");
     const [phone, setPhone] = useState("");
     const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // Adicione a lógica de submissão do formulário aqui
-        console.log("Form submitted", { name, email, password });
+
+        try {
+            const response = await fetch('/api/auth/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name,
+                    email,
+                    document,
+                    phone,
+                    password,
+                }),
+            });
+
+            if (!response.ok) {
+                const data = await response.json();
+                throw new Error(data.error || 'Erro ao criar usuário');
+            }
+
+            // User successfully registered, you can redirect or show a success message
+            console.log("User registered successfully");
+            router.push("/login"); // Redireciona para a próxima página
+        } catch (error) {
+            if (error instanceof Error) {
+                setError(error.message);
+            } else {
+                setError("An unexpected error occurred");
+            }
+        }
     };
 
     return (

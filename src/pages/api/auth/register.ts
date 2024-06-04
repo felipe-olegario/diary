@@ -1,11 +1,13 @@
 // pages/api/auth/register.ts
 import { NextApiRequest, NextApiResponse } from 'next';
-import prisma from '../../../lib/prisma';
+import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcryptjs';
+
+const prisma = new PrismaClient();
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
-    const { name, email, password } = req.body;
+    const { name, email, password, phone, document } = req.body;
 
     // Verifique se o usuário já existe
     const existingUser = await prisma.user.findUnique({
@@ -24,6 +26,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       data: {
         name,
         email,
+        phone,
+        document,
         password: hashedPassword,
       },
     });

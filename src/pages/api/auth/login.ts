@@ -1,8 +1,10 @@
 // pages/api/auth/login.ts
 import { NextApiRequest, NextApiResponse } from 'next';
-import prisma from '../../../../prisma';
+import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+
+const prisma = new PrismaClient();
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {

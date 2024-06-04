@@ -4,16 +4,17 @@ services:
   postgres:
     image: postgres
     ports:
-      - 5432:5432
+      - "5432:5432"
     volumes:
       - ./db_data:/var/lib/postgresql/data
-      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+      # - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
     environment:
       POSTGRES_PASSWORD: admin
-      POSTGRES_USER: postgres
-      POSTGRES_DB: postgres
+      POSTGRES_USER: diary
+      POSTGRES_DB: diarydb
     networks:
       - tspay-network
+
   adminer:
     image: adminer
     restart: always
@@ -21,6 +22,7 @@ services:
       - "8080:8080"
     networks:
       - tspay-network
+
 networks:
   tspay-network:
     driver: bridge
