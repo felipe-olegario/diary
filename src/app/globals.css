@@ -37,3 +37,27 @@ body {
   font-size: 0.875rem; /* Ajusta o tamanho da fonte */
   color: rgba(156, 163, 175, 0.5); /* Tornar o placeholder mais claro (text-gray-400 com opacidade 50%) */
 }
+
+.skewed-div {
+  width: 200px; /* Adjust width as needed */
+  height: 100px; /* Adjust height as needed */
+  background-color: #eee;
+  position: relative; /* Required for positioning child elements */
+  transform: skewY(-30deg); /* Skew the div */
+}
+
+.skewed-div::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background-color: #ccc;
+  transform: translateY(-50%) rotate(90deg); /* Create the belly */
+}
+
+.gradient-custom {
+  background: rgb(238,255,32);
+  background: linear-gradient(4deg, rgba(238,255,32,1) 0%, rgba(29,225,92,1) 100%);
+}

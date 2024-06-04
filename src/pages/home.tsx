@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import jwt from 'jsonwebtoken';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
+import Navbar from '../components/navbar';
 
 const HomePage: React.FC = () => {
   const router = useRouter();
@@ -66,6 +67,7 @@ const HomePage: React.FC = () => {
               ))}
             </div>
           </div>
+          <Navbar></Navbar>
         </div>
       )}
     </div>
