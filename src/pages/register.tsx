@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { CSSTransition, TransitionGroup } from "react-transition-group";
+import Link from "next/link"; // Importando o componente Link do Next.js
 import Input from "../components/input";
 import Button from "../components/button";
 
@@ -71,7 +71,12 @@ const ComponentName: React.FC<ComponentNameProps> = ({ exampleProp }) => {
                         placeholder="Digite sua senha"
                         required
                     />
-                    <div className="flex items-center justify-between">
+                    
+                    <div className="flex flex-col items-center">
+                        {/* Adicionando o link para a tela de login */}
+                        <Link href="/login" className="text-black hover:underline mb-4 font-bold">
+                            Já tem uma conta? Faça login
+                        </Link>
                         <Button
                             widthFull={true}
                             text="Enviar"
