@@ -7,7 +7,15 @@ const HomePage: React.FC = () => {
   const router = useRouter();
   const [userName, setUserName] = useState("");
   const [userId, setUserId] = useState("");
-  const [isLoading, setIsLoading] = useState(true); // Added loading state
+  const [isLoading, setIsLoading] = useState(true);
+
+  const configEmojis = [
+    {color: 'red', emoji: 'sad'},
+    {color: 'orange', emoji: 'angry'},
+    {color: 'yellow', emoji: 'neutral'},
+    {color: 'blue', emoji: 'happy'},
+    {color: 'green', emoji: 'very-happy'},
+  ]
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -44,9 +52,19 @@ const HomePage: React.FC = () => {
             <Image src="/logo.svg" alt="Logo" width={80} height={50} priority/>
             <Image src="/notification.svg" alt="Logo" width={25} height={25} priority/>
           </div>
-          <div className='flex flex-col bg-white rounded-md p-4 items-center'>
+          <div className='flex flex-col bg-white rounded-md px-4 py-6 items-center gap-3'>
             {userName && <span className='font-lg'>Olá, {userName}</span>}
-            <h1 className='text-2xl font-bold'>Como você está hoje?</h1>
+            <h1 className='text-2xl font-bold mb-2'>Como você está hoje?</h1>
+            <div className='flex gap-2'>
+              {configEmojis.map((item, index) => (
+                <div
+                  key={index}
+                  className={`bg-${item.color}-custom rounded-md border border-black h-14 w-10 flex items-center justify-center`}
+                >
+                  <Image src={`/emoji/${item.emoji}.svg`} alt={item.emoji} width={34} height={34} priority/>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       )}
