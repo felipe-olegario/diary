@@ -27,7 +27,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     // Gere um token JWT
-    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET!, {
+    const token = jwt.sign({ userId: user.id, name: user.name }, process.env.JWT_SECRET!, {
       expiresIn: '1h',
     });
 
