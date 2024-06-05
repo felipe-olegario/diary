@@ -55,8 +55,8 @@ const ComponentName: React.FC<ComponentNameProps> = ({ exampleProp }) => {
     };
 
     return (
-        <div className="max-w-[1050px] mx-auto w-full h-[100vh] relative">
-            <div className="absolute flex flex-col items-center justify-center">
+        <div className="max-w-[1050px] mx-auto w-full h-[100vh] relative flex items-center">
+            <div className="flex flex-col items-center justify-center mx-auto w-full">
                 <span>Cadastre-se</span>
                 <h1 className="text-2xl font-bold">Vamos começar!</h1>
                 <span className="text-gray-400">Insira seus dados abaixo</span>

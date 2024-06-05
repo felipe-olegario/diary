@@ -16,7 +16,7 @@ const Navbar: React.FC<ComponentNameProps> = ({ selectedPage  }) => {
   };
   return (
     <div className='bg-white h-20 w-full fixed bottom-0 left-0 flex justify-between items-center px-10 skew-x-10'>
-      <div className='flex gap-9'>
+      <div className='flex gap-7'>
         <div className='p-2' onClick={() => handleNavigation('home')}>
           <svg width="22" height="17" viewBox="0 0 22 17" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd" d="M16.552 14.8658H5.45134V6.66017L11.0017 2.42857L16.552 6.66017V14.8658ZM21.5844 7.83766L11.6677 0.220779C11.2977 -0.0735931 10.7427 -0.0735931 10.3726 0.220779L0.419025 7.83766C-0.0620052 8.20563 -0.13601 8.86796 0.234013 9.34632C0.604037 9.82468 1.27008 9.89827 1.75111 9.5303L3.34221 8.31602V15.9325C3.34221 16.5216 3.82324 17 4.41528 17H17.6251C18.2171 17 18.6982 16.5216 18.6982 15.9325V8.31602L20.2893 9.5303C20.4743 9.67749 20.7333 9.75108 20.9553 9.75108C21.2883 9.75108 21.5844 9.6039 21.8064 9.34632C22.1394 8.86796 22.0284 8.20563 21.5844 7.83766Z"  fill={iconColor('home')}/>
@@ -31,7 +31,7 @@ const Navbar: React.FC<ComponentNameProps> = ({ selectedPage  }) => {
         <div className='gradient-custom h-14 w-14 rounded-full flex items-center justify-center'>
             <Image src="/add-icon.svg" alt="Logo" width={20} height={20} priority />
         </div>
-      <div className='flex gap-9' onClick={() => handleNavigation('calendar')}>
+      <div className='flex gap-7' onClick={() => handleNavigation('calendar')}>
         <div className='p-2'>
           <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd" d="M2.32826 14.6818H14.7457V5.40909H2.32826V14.6818ZM4.4237 1.85455C4.88935 2.31818 4.88935 3.09091 4.4237 3.55455C3.95805 4.01818 3.18196 4.01818 2.71631 3.55455C2.25065 3.09091 2.25065 2.31818 2.71631 1.85455C3.18196 1.39091 3.95805 1.39091 4.4237 1.85455ZM14.2024 1.85455C14.6681 2.31818 14.6681 3.09091 14.2024 3.55455C13.7367 4.01818 12.9607 4.01818 12.495 3.55455C12.0294 3.09091 12.0294 2.31818 12.495 1.85455C12.9607 1.39091 13.7367 1.39091 14.2024 1.85455ZM2.09544 0C1.24174 0 0 0.85 0 2.16364V15.1455C0 15.9955 1.16413 17 2.09544 17H14.5128C15.4441 17 16.9963 16.6136 16.9963 15.3V2.31818C17.0739 0.618182 15.9098 0 14.9785 0H2.09544Z" fill={iconColor('calendar')}/>

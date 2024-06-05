@@ -53,8 +53,8 @@ const ComponentName: React.FC<ComponentNameProps> = ({ exampleProp }) => {
 
 
     return (
-        <div className="max-w-[1050px] mx-auto w-full h-[100vh] relative">
-            <div className="absolute flex flex-col items-center justify-center">
+        <div className="max-w-[1050px] mx-auto w-full h-[100vh] relative flex items-center">
+            <div className="absolute flex flex-col items-center justify-center w-full">
                 <Image src="/logo.svg" alt="Logo" width={150} height={50} priority className="mb-6"/>
                 <h1 className="text-2xl font-bold">Como foi seu dia? 🤔</h1>
 

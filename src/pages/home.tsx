@@ -16,7 +16,7 @@ const HomePage: React.FC = () => {
     {color: 'bg-yellow-custom', emoji: 'neutral'},
     {color: 'bg-blue-custom', emoji: 'happy'},
     {color: 'bg-green-custom', emoji: 'very-happy'},
-  ]
+  ];
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -24,22 +24,24 @@ const HomePage: React.FC = () => {
       if (token) {
         try {
           const decodedToken: any = jwt.decode(token);
-          const id = decodedToken?.userId;
-          const name = decodedToken?.name;
+          if (!decodedToken || !decodedToken.userId) {
+            throw new Error('Invalid token');
+          }
+          const id = decodedToken.userId;
+          const name = decodedToken.name;
           setUserName(name);
           setUserId(id);
         } catch (error) {
           console.error("Error decoding token:", error);
-          // Handle token decoding error (e.g., redirect to login)
+          router.push('/login'); // Redirect to login if there's an error
         } finally {
-          setIsLoading(false); // Set loading state to false after processing
+          setIsLoading(false);
         }
       } else {
-        // Handle case where token is not found (e.g., redirect to login)
-        setIsLoading(false);
+        router.push('/login'); // Redirect to login if no token found
       }
     }
-  }, []); // Empty dependency array to run only on initial render
+  }, [router]); // Dependency array to run on initial render
 
   return (
     <div className="max-w-[1050px] mx-auto w-full h-[100vh] relative bg-gray-100">
