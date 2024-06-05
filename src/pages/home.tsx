@@ -11,11 +11,11 @@ const HomePage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const configEmojis = [
-    {color: 'red', emoji: 'sad'},
-    {color: 'orange', emoji: 'angry'},
-    {color: 'yellow', emoji: 'neutral'},
-    {color: 'blue', emoji: 'happy'},
-    {color: 'green', emoji: 'very-happy'},
+    {color: 'bg-red-custom', emoji: 'sad'},
+    {color: 'bg-orange-custom', emoji: 'angry'},
+    {color: 'bg-yellow-custom', emoji: 'neutral'},
+    {color: 'bg-blue-custom', emoji: 'happy'},
+    {color: 'bg-green-custom', emoji: 'very-happy'},
   ]
 
   useEffect(() => {
@@ -42,7 +42,7 @@ const HomePage: React.FC = () => {
   }, []); // Empty dependency array to run only on initial render
 
   return (
-    <div className="max-w-[1050px] mx-auto w-full h-[100vh] relative bg-gray-200">
+    <div className="max-w-[1050px] mx-auto w-full h-[100vh] relative bg-gray-100">
       {isLoading ? (
         <div className="flex justify-center items-center h-full">
           Loading...
@@ -60,7 +60,7 @@ const HomePage: React.FC = () => {
               {configEmojis.map((item, index) => (
                 <div
                   key={index}
-                  className={`bg-${item.color}-custom rounded-md border border-black h-14 w-10 flex items-center justify-center`}
+                  className={`${item.color} rounded-md border border-black h-14 w-10 flex items-center justify-center`}
                 >
                   <Image src={`/emoji/${item.emoji}.svg`} alt={item.emoji} width={34} height={34} priority/>
                 </div>
