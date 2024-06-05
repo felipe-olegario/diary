@@ -30,3 +30,10 @@ body {
   background: rgb(238,255,32);
   background: linear-gradient(4deg, rgba(238,255,32,1) 0%, rgba(29,225,92,1) 100%);
 }
+
+.svg-icon {
+  width: 20px;
+  height: 20px;
+  fill: currentColor; /* Essa propriedade pode ser útil dependendo do SVG */
+  color: red; /* Altere para a cor desejada */
+}

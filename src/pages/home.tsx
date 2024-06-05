@@ -67,7 +67,7 @@ const HomePage: React.FC = () => {
               ))}
             </div>
           </div>
-          <Navbar></Navbar>
+          <Navbar selectedPage='home'></Navbar>
         </div>
       )}
     </div>
