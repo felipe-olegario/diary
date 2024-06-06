@@ -3,13 +3,14 @@ import Link from "next/link"; // Importando o componente Link do Next.js
 import Input from "../components/input";
 import { useRouter } from "next/router";
 import Button from "../components/button";
+import Toast from "../components/toast"; // Import the Toast component
 
 interface ComponentNameProps {
     exampleProp?: string;
 }
 
 const ComponentName: React.FC<ComponentNameProps> = ({ exampleProp }) => {
-      const router = useRouter();
+    const router = useRouter();
     const [index, setIndex] = useState<number>(0);
 
     const [name, setName] = useState("");
@@ -52,6 +53,10 @@ const ComponentName: React.FC<ComponentNameProps> = ({ exampleProp }) => {
                 setError("An unexpected error occurred");
             }
         }
+    };
+
+    const handleCloseToast = () => {
+        setError(""); // Clear the error state to hide the toast
     };
 
     return (
@@ -115,6 +120,9 @@ const ComponentName: React.FC<ComponentNameProps> = ({ exampleProp }) => {
                         />
                     </div>
                 </form>
+                {error && (
+                    <Toast message={error} onClose={handleCloseToast} />
+                )}
             </div>
         </div>
     );
