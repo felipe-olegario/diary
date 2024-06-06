@@ -4,6 +4,7 @@ import Input from "../components/input";
 import Button from "../components/button";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import Toast from "../components/toast"; // Importando o componente Toast
 
 interface ComponentNameProps {
     exampleProp?: string;
@@ -36,21 +37,20 @@ const ComponentName: React.FC<ComponentNameProps> = ({ exampleProp }) => {
             }
 
             const { token } = await response.json();
-            // Store the token in local storage or session storage
             localStorage.setItem('token', token);
 
-            // Redirect the user to the dashboard or another page
             console.log("User logged in successfully");
             router.push("/home"); // Redireciona para a próxima página
         } catch (error) {
             if (error instanceof Error) {
                 setError(error.message);
+                setTimeout(() => setError(""), 3000); // Clear the error after 3 seconds
             } else {
                 setError("An unexpected error occurred");
+                setTimeout(() => setError(""), 3000); // Clear the error after 3 seconds
             }
         }
     };
-
 
     return (
         <div className="max-w-[1050px] mx-auto w-full h-[100vh] relative flex items-center">
@@ -88,6 +88,7 @@ const ComponentName: React.FC<ComponentNameProps> = ({ exampleProp }) => {
                     </div>
                 </form>
             </div>
+            {error && <Toast message={error} onClose={() => setError("")} />}
         </div>
     );
 };
