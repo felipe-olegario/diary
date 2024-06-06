@@ -9,13 +9,15 @@ const HomePage: React.FC = () => {
   const [userName, setUserName] = useState("");
   const [userId, setUserId] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedMood, setSelectedMood] = useState<string | null>(null);
+  const [disabled, setDisabled] = useState<boolean>(false);
 
   const configEmojis = [
-    {color: 'bg-red-custom', emoji: 'sad'},
-    {color: 'bg-orange-custom', emoji: 'angry'},
-    {color: 'bg-yellow-custom', emoji: 'neutral'},
-    {color: 'bg-blue-custom', emoji: 'happy'},
-    {color: 'bg-green-custom', emoji: 'very-happy'},
+    { color: 'bg-red-custom', emoji: 'sad', mood: 'SAD' },
+    { color: 'bg-orange-custom', emoji: 'angry', mood: 'ANGRY' },
+    { color: 'bg-yellow-custom', emoji: 'neutral', mood: 'NEUTRAL' },
+    { color: 'bg-blue-custom', emoji: 'happy', mood: 'HAPPY' },
+    { color: 'bg-green-custom', emoji: 'very-happy', mood: 'VERY_HAPPY' },
   ];
 
   useEffect(() => {
@@ -43,6 +45,45 @@ const HomePage: React.FC = () => {
     }
   }, [router]); // Dependency array to run on initial render
 
+  useEffect(() => {
+    const savedMood = localStorage.getItem('selectedMood');
+    if (savedMood) {
+      setSelectedMood(savedMood);
+      setDisabled(true);
+    }
+  }, []);
+
+  const handleMoodClick = async (mood: string) => {
+    try {
+      const response = await fetch('/api/mood', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userId,
+          mood,
+        }),
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || 'Failed to save mood');
+      }
+
+      localStorage.setItem('selectedMood', mood);
+      setSelectedMood(mood);
+      setDisabled(true);
+
+      const result = await response.json();
+      console.log('Mood saved:', result);
+      // You can add additional logic here, e.g., showing a success message
+    } catch (error) {
+      console.error('Error saving mood:', error);
+      // Optionally handle the error, e.g., showing an error message
+    }
+  };
+
   return (
     <div className="max-w-[1050px] mx-auto w-full h-[100vh] relative bg-gray-100">
       {isLoading ? (
@@ -52,8 +93,8 @@ const HomePage: React.FC = () => {
       ) : (
         <div className="flex flex-col py-8 px-4">
           <div className='flex justify-between items-center mb-10'>
-            <Image src="/logo.svg" alt="Logo" width={80} height={50} priority/>
-            <Image src="/notification.svg" alt="Logo" width={25} height={25} priority/>
+            <Image src="/logo.svg" alt="Logo" width={80} height={50} priority />
+            <Image src="/notification.svg" alt="Logo" width={25} height={25} priority />
           </div>
           <div className='flex flex-col bg-white rounded-md px-4 py-6 items-center gap-3'>
             {userName && <span className='font-lg'>Olá, {userName}</span>}
@@ -62,9 +103,11 @@ const HomePage: React.FC = () => {
               {configEmojis.map((item, index) => (
                 <div
                   key={index}
-                  className={`${item.color} rounded-md border border-black h-14 w-10 flex items-center justify-center`}
+                  className={`${item.color} rounded-md border border-black h-14 w-10 flex items-center justify-center cursor-pointer`}
+                  onClick={() => handleMoodClick(item.mood)}
+                  style={{ opacity: selectedMood === item.mood ? 1 : 0.5, pointerEvents: disabled ? 'none' : 'auto' }}
                 >
-                  <Image src={`/emoji/${item.emoji}.svg`} alt={item.emoji} width={34} height={34} priority/>
+                  <Image src={`/emoji/${item.emoji}.svg`} alt={item.emoji} width={34} height={34} priority />
                 </div>
               ))}
             </div>
