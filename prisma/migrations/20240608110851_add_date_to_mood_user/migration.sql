@@ -43,6 +43,9 @@ CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 -- CreateIndex
 CREATE UNIQUE INDEX "User_document_key" ON "User"("document");
 
+-- CreateIndex
+CREATE UNIQUE INDEX "MoodUser_userId_createdAt_key" ON "MoodUser"("userId", "createdAt");
+
 -- AddForeignKey
 ALTER TABLE "Secret" ADD CONSTRAINT "Secret_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 

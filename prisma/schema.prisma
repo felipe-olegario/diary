@@ -40,6 +40,8 @@ model MoodUser {
 
   userId    Int
   user      User      @relation("UserMoods", fields: [userId], references: [id])
+
+  @@unique([userId, createdAt])
 }
 
 enum Mood {

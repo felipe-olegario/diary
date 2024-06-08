@@ -46,16 +46,29 @@ const HomePage: React.FC = () => {
   }, [router]); // Dependency array to run on initial render
 
   useEffect(() => {
-    const savedMood = localStorage.getItem('selectedMood');
-    if (savedMood) {
-      setSelectedMood(savedMood);
-      setDisabled(true);
+    const checkMood = async () => {
+      try {
+        const response = await fetch(`/api/get-mood?userId=${userId}`);
+        if (response.ok) {
+          const data = await response.json();
+          if (data.mood) {
+            setSelectedMood(data.mood);
+            setDisabled(true);
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching mood:', error);
+      }
+    };
+
+    if (userId) {
+      checkMood();
     }
-  }, []);
+  }, [userId]);
 
   const handleMoodClick = async (mood: string) => {
     try {
-      const response = await fetch('/api/mood', {
+      const response = await fetch('/api/create-mood', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -71,7 +84,6 @@ const HomePage: React.FC = () => {
         throw new Error(data.error || 'Failed to save mood');
       }
 
-      localStorage.setItem('selectedMood', mood);
       setSelectedMood(mood);
       setDisabled(true);
 
@@ -94,7 +106,7 @@ const HomePage: React.FC = () => {
         <div className="flex flex-col py-8 px-4">
           <div className='flex justify-between items-center mb-10'>
             <Image src="/logo.svg" alt="Logo" width={80} height={50} priority />
-            <Image src="/notification.svg" alt="Logo" width={25} height={25} priority />
+            <Image src="/notification.svg" alt="Notification" width={25} height={25} priority />
           </div>
           <div className='flex flex-col bg-white rounded-md px-4 py-6 items-center gap-3'>
             {userName && <span className='font-lg'>Olá, {userName}</span>}
